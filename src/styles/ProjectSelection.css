@@ -1,0 +1,21 @@
+#project-selection {
+    text-align: center;
+  }
+  
+  .project {
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .project img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .project h3 {
+    margin-top: 0;
+  }
+  

@@ -1,0 +1,15 @@
+.project-info {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+  }
+  
+  .project-info h2 {
+    margin-bottom: 20px;
+  }
+  
+  .project-info p {
+    margin-bottom: 10px;
+  }
+  

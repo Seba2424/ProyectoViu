@@ -1,0 +1,89 @@
+body {
+    background:url("/public/images/fondoviu.png");
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-form {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    width: 300px;
+    color: white;
+}
+
+.login-form .avatar {
+    margin-bottom: 20px;
+}
+
+.login-form .avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.login-form input[type="text"], 
+.login-form input[type="email"], 
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.login-form .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.login-form .options a {
+    color: white;
+    text-decoration: none;
+}
+
+.login-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #45a049;
+}

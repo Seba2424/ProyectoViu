@@ -1,0 +1,26 @@
+[
+  {
+    "username": "admin",
+    "password": "admin123",
+    "email": "admin@example.com",
+    "municipality": "Municipalidad Admin",
+    "commune": "Comuna Admin",
+    "role": "admin"
+  },
+  {
+    "username": "user",
+    "password": "user123",
+    "email": "user@example.com",
+    "municipality": "Municipalidad User",
+    "commune": "Comuna User",
+    "role": "user"
+  },
+  {
+    "username": "seba",
+    "password": "seba1",
+    "email": "seba@gmail.com",
+    "municipality": "Temuco",
+    "commune": "Temuco",
+    "role": "user"
+  }
+]
