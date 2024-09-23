@@ -201,41 +201,38 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
   const currentQuestion = currentQuestions[currentQuestionIndex];
 
   const isLastQuestion = currentCategoryIndex === questions.length - 1 &&
-                         currentSubCategoryIndex === subcategories.length - 1 &&
-                         currentQuestionIndex === currentQuestions.length - 1;
+    currentSubCategoryIndex === subcategories.length - 1 &&
+    currentQuestionIndex === currentQuestions.length - 1;
 
-                         const handleAnswer = (answer) => {
-                          const updatedAnswers = [...answers];
-                          if (!updatedAnswers[currentCategoryIndex]) {
-                            updatedAnswers[currentCategoryIndex] = [];
-                          }
-                          if (!updatedAnswers[currentCategoryIndex][currentSubCategoryIndex]) {
-                            updatedAnswers[currentCategoryIndex][currentSubCategoryIndex] = [];
-                          }
-                          updatedAnswers[currentCategoryIndex][currentSubCategoryIndex][currentQuestionIndex] = answer || '';
-                          setAnswers(updatedAnswers);
-                      
-                          console.log(`Guardando respuesta: ${answer || ''}`); // Imprimir la respuesta guardada
-                      
-                          if (!isLastQuestion) {
-                            proceedToNextQuestion();
-                          }
-                        };
+  const handleAnswer = (answer) => {
+    const updatedAnswers = [...answers];
+    if (!updatedAnswers[currentCategoryIndex]) {
+      updatedAnswers[currentCategoryIndex] = [];
+    }
+    if (!updatedAnswers[currentCategoryIndex][currentSubCategoryIndex]) {
+      updatedAnswers[currentCategoryIndex][currentSubCategoryIndex] = [];
+    }
+    updatedAnswers[currentCategoryIndex][currentSubCategoryIndex][currentQuestionIndex] = answer || '';
+    setAnswers(updatedAnswers);
+    if (!isLastQuestion) {
+      proceedToNextQuestion();
+    }
+  };
 
-                        const proceedToNextQuestion = () => {
-                          if (currentQuestionIndex < currentQuestions.length - 1) {
-                            setCurrentQuestionIndex(currentQuestionIndex + 1);
-                          } else if (currentSubCategoryIndex < subcategories.length - 1) {
-                            setCurrentSubCategoryIndex(currentSubCategoryIndex + 1);
-                            setCurrentQuestionIndex(0);
-                          } else if (currentCategoryIndex < questions.length - 1) {
-                            setCurrentCategoryIndex(currentCategoryIndex + 1);
-                            setCurrentSubCategoryIndex(0);
-                            setCurrentQuestionIndex(0);
-                          }
-                          setOpenText(''); // Limpiar el texto después de avanzar
-                        };
-                      
+  const proceedToNextQuestion = () => {
+    if (currentQuestionIndex < currentQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else if (currentSubCategoryIndex < subcategories.length - 1) {
+      setCurrentSubCategoryIndex(currentSubCategoryIndex + 1);
+      setCurrentQuestionIndex(0);
+    } else if (currentCategoryIndex < questions.length - 1) {
+      setCurrentCategoryIndex(currentCategoryIndex + 1);
+      setCurrentSubCategoryIndex(0);
+      setCurrentQuestionIndex(0);
+    }
+    setOpenText(''); // Limpiar el texto después de avanzar
+  };
+
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
@@ -273,14 +270,6 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
     onEvaluationComplete(answers);
   };
 
-
-  const handleNext = () => {
-    handleAnswer(currentQuestion.tipo === 'abierta' ? openText : null);
-  };
-
-
-
-  const selectedAnswer = getSelectedAnswer();
   return (
     <div className="evaluation-container">
       <h2>{currentCategory.categoria}</h2>
@@ -289,77 +278,60 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
         <p>{currentQuestion.pregunta}</p>
         {currentQuestion.tipo === "si_no" ? (
           <>
-            <button
-              className={`answer-button ${answers[currentCategoryIndex]?.[currentSubCategoryIndex]?.[currentQuestionIndex] === 'Sí' ? 'selected' : ''}`}
-              onClick={() => handleAnswer('Sí')}
-            >
-              Sí
-            </button>
-            <button
-              className={`answer-button ${answers[currentCategoryIndex]?.[currentSubCategoryIndex]?.[currentQuestionIndex] === 'No' ? 'selected' : ''}`}
-              onClick={() => handleAnswer('No')}
-            >
-              No
-            </button>
+            <div className="answer-button-container">
+              <button
+                className={`answer-button ${getSelectedAnswer() === 'Sí' ? 'selected' : ''}`}
+                onClick={() => handleAnswer('Sí')}
+              >
+                Sí
+              </button>
+              <button
+                className={`answer-button ${getSelectedAnswer() === 'No' ? 'selected' : ''}`}
+                onClick={() => handleAnswer('No')}
+              >
+                No
+              </button>
+            </div>
           </>
         ) : currentQuestion.tipo === "opcion_multiple" ? (
-          <>
+          <div className="answer-button-container">
             {currentQuestion.opciones.map((opcion, index) => (
               <button
                 key={index}
-                className={`answer-button ${answers[currentCategoryIndex]?.[currentSubCategoryIndex]?.[currentQuestionIndex] === opcion ? 'selected' : ''}`}
+                className={`answer-button ${getSelectedAnswer() === opcion ? 'selected' : ''}`}
                 onClick={() => handleAnswer(opcion)}
               >
                 {opcion}
               </button>
             ))}
-          </>
+          </div>
         ) : (
-          <>
-            <textarea
-              placeholder="Escriba su respuesta aquí..."
-              value={openText}
-              onChange={(e) => setOpenText(e.target.value)}
-            />
-          </>
+          <textarea
+            placeholder="Escriba su respuesta aquí..."
+            value={openText}
+            onChange={(e) => setOpenText(e.target.value)}
+          />
         )}
       </div>
       <div className="navigation-buttons">
         <button
-          onClick={() => {
-            if (currentQuestionIndex > 0) {
-              setCurrentQuestionIndex(currentQuestionIndex - 1);
-            } else if (currentSubCategoryIndex > 0) {
-              setCurrentSubCategoryIndex(currentSubCategoryIndex - 1);
-              setCurrentQuestionIndex(currentQuestions.length - 1);
-            } else if (currentCategoryIndex > 0) {
-              setCurrentCategoryIndex(currentCategoryIndex - 1);
-              setCurrentSubCategoryIndex(subcategories.length - 1);
-              setCurrentQuestionIndex(currentQuestions.length - 1);
-            }
-            setOpenText(answers[currentCategoryIndex]?.[currentSubCategoryIndex]?.[currentQuestionIndex] || '');
-          }}
+          onClick={handlePrevious}
           disabled={currentCategoryIndex === 0 && currentSubCategoryIndex === 0 && currentQuestionIndex === 0}
         >
           Anterior
         </button>
-        {isLastQuestion && (
-          <button
-            className="view-charts-button"
-            onClick={handleViewCharts}
-          >
+        {isLastQuestion ? (
+          <button className="view-charts-button" onClick={handleViewCharts}>
             Ver gráficos
           </button>
+        ) : (
+          <button onClick={proceedToNextQuestion}>
+            Siguiente
+          </button>
         )}
-        <button
-          onClick={() => handleAnswer(openText)}
-        >
-          {isLastQuestion ? 'Finalizar' : 'Siguiente'}
-        </button>
       </div>
     </div>
   );
 };
-
 
 export default Evaluation;

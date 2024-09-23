@@ -73,7 +73,7 @@ const Login = ({ onLogin }) => {
       {isRegistering ? (
         <div className="login-form">
           <div className="avatar">
-            <img src="/path/to/avatar-icon.png" alt="Avatar" />
+            <img src="/images/logoViuSinFondo.png" alt="Avatar" />
           </div>
           <h2>Registro</h2>
           <form id="register-form" onSubmit={handleRegister}>
@@ -94,7 +94,7 @@ const Login = ({ onLogin }) => {
       ) : (
         <div className="login-form">
           <div className="avatar">
-            <img src="/path/to/avatar-icon.png" alt="Avatar" />
+            <img src="/images/logoViuSinFondo.png" alt="Avatar" />
           </div>
           <h2>Iniciar Sesión</h2>
           <form id="login-form" onSubmit={handleLogin}>

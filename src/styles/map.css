@@ -5,18 +5,69 @@
 }
 
 .project-info {
-  width: 30%; /* Ancho fijo para la información del proyecto */
-  background-color: white;
+  width: 30%;
+  background-color: rgba(47, 47, 47, 0.85); /* Gris oscuro con transparencia */
   padding: 20px;
   overflow-y: auto;
-  z-index: 2; /* Para que esté por encima del mapa */
+  z-index: 2;
+  color: white; /* Letras blancas */
+  border-radius: 8px; /* Bordes redondeados */
 }
+
+.project-info h2 {
+  color: white;
+  margin-bottom: 15px;
+  text-align: left;
+  font-size: 22px;
+}
+
+.project-info p {
+  color: white;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+.project-info strong {
+  color: #e0e0e0; /* Hace el texto en negrita un poco más claro para diferenciarlo */
+}
+
+.project-info button {
+  background-color: #4CAF50; /* Verde para el botón */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.project-info button:hover {
+  background-color: darkgreen; /* Oscurece el botón al pasar el mouse */
+}
+
+.start-evaluation-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.start-evaluation-button:hover {
+  background-color: #45a049;
+}
+
 #map {
-  width: 70%; /* Ancho fijo para el mapa */
+  width: 70%;
   height: 100%;
-  z-index: 1; /* Detrás de la información del proyecto */
+  background-color: #171616; /* Fondo oscuro para el mapa */
+  z-index: 1;
   position: relative;
 }
+
 #evaluation-container {
   position: absolute;
   top: 0;
@@ -29,6 +80,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .evaluation-container {
   position: relative;
   width: 50%;
@@ -39,5 +91,3 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
-
-

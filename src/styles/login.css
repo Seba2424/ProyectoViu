@@ -19,14 +19,14 @@ body {
 }
 
 .login-form {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.6); /* Más oscuro para mejor contraste */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     text-align: center;
     width: 300px;
-    color: white;
+    color: #f1f1f1; /* Color más claro para el texto */
 }
 
 .login-form .avatar {
@@ -42,12 +42,14 @@ body {
 .login-form h2 {
     margin-bottom: 20px;
     font-weight: bold;
+    color: #f1f1f1; /* Asegúrate de que el encabezado también tenga buen contraste */
 }
 
 .login-form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    color: #f1f1f1; /* Color más claro para las etiquetas */
 }
 
 .login-form input[type="text"], 
@@ -56,9 +58,10 @@ body {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo más claro en los inputs */
+    color: #000; /* Texto oscuro para los inputs */
     outline: none;
 }
 
@@ -70,7 +73,7 @@ body {
 }
 
 .login-form .options a {
-    color: white;
+    color: #f1f1f1; /* Cambiar el color de los enlaces para mejor contraste */
     text-decoration: none;
 }
 

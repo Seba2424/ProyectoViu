@@ -40,9 +40,6 @@ const ProjectForm = ({ onSubmitForm }) => {
           <option value="Los Sauces">Los Sauces</option>
         </select>
 
-        <label>Comuna:</label>
-        <input type="text" name="comuna" value={formData.comuna} onChange={handleChange} required />
-
         <label>Plazo (en días):</label>
         <input type="number" name="plazo" value={formData.plazo} onChange={handleChange} required />
 

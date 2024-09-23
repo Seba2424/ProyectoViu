@@ -23,11 +23,12 @@ const Map = ({ projectData, onStartEvaluation, isEvaluating, onEvaluationComplet
   useEffect(() => {
     if (mapRef.current === null) {
       mapRef.current = L.map('map').setView(locations[projectData.ubicacion] || locations['Temuco'], 14);
-
+  
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        opacity: 0.85 // Ajusta la opacidad para ver el fondo detrás
       }).addTo(mapRef.current);
-
+  
       const drawControl = new L.Control.Draw({
         draw: {
           polyline: true,
@@ -38,27 +39,27 @@ const Map = ({ projectData, onStartEvaluation, isEvaluating, onEvaluationComplet
         },
         edit: false
       });
-
+  
       mapRef.current.addControl(drawControl);
-
+  
       mapRef.current.on('draw:created', function (e) {
         const layer = e.layer;
         mapRef.current.addLayer(layer);
         layer.setStyle({ color: '#000', weight: 5 });
-
+  
         if (layer instanceof L.Polyline) {
           const latlngs = layer.getLatLngs();
           let distance = 0;
           const speed = 5; // asumiendo velocidad de 5 km/h
-
+  
           for (let i = 0; i < latlngs.length - 1; i++) {
             distance += latlngs[i].distanceTo(latlngs[i + 1]);
           }
-
+  
           const time = distance / (speed * 1000); // tiempo en horas
           distance = (distance / 1000).toFixed(2); // distancia en km
           const timeFixed = time.toFixed(2); // tiempo en horas
-
+  
           const startLatLng = latlngs[0];
           fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${startLatLng.lat}&lon=${startLatLng.lng}`)
             .then(response => response.json())
@@ -77,20 +78,20 @@ const Map = ({ projectData, onStartEvaluation, isEvaluating, onEvaluationComplet
     }
   }, [projectData.ubicacion]);
 
+  // Aplicando clase CSS directamente desde el JSX
   return (
     <div className="map-container">
-      <div className="project-info">
-        <h2>Información del Proyecto</h2>
+      <div className="project-info" style={{ backgroundColor: 'rgba(47, 47, 47, 0.8)', color: 'white' }}>
+        <h2 style={{ color: 'white' }}>Información del Proyecto</h2>
         <p><strong>Tipo de proyecto:</strong> {projectType}</p>
         <p><strong>Nombre del proyecto:</strong> {projectData.nombre}</p>
         <p><strong>Ubicación:</strong> {projectData.ubicacion}</p>
-        <p><strong>Comuna:</strong> {projectData.comuna}</p>
         <p><strong>Plazo:</strong> {projectData.plazo} días</p>
         <p><strong>Monto de inversión:</strong> {projectData.inversion}</p>
         <p><strong>Justificación del proyecto:</strong> {projectData.justificacion}</p>
         {streetInfo && <p><strong>Información de la calle:</strong> {streetInfo}</p>}
         {distanceInfo && <p><strong>Distancia y Tiempo:</strong> {distanceInfo}</p>}
-        <button className="start-evaluation-button" onClick={onStartEvaluation}>INICIO DE EVALUACIÓN</button>
+        <button className="start-evaluation-button" style={{ backgroundColor: 'green', color: 'white' }} onClick={onStartEvaluation}>INICIO DE EVALUACIÓN</button>
       </div>
   
       <div id="map"></div>

@@ -1,52 +1,58 @@
 .project-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .project-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .project-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .project-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-  }
-  
-  .project-form input,
-  .project-form select,
-  .project-form textarea {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .project-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .project-form button:hover {
-    background-color: #218838;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.project-form {
+  background: rgba(0, 0, 0, 0.7);  /* Fondo oscuro con transparencia */
+  color: white;  /* Texto blanco para contraste */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
+}
+
+.project-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.project-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.project-form input,
+.project-form select,
+.project-form textarea {
+  width: 100%;  /* Asegura que todos los campos ocupen todo el ancho disponible */
+  padding: 10px;  /* Aumenta el padding para hacerlo uniforme */
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamientos */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.project-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamientos */
+}
+
+.project-form button:hover {
+  background-color: #218838;
+}

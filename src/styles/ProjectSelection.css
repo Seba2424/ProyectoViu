@@ -1,21 +1,54 @@
-#project-selection {
-    text-align: center;
-  }
-  
-  .project {
-    display: inline-block;
-    width: 30%;
-    margin: 10px;
-    cursor: pointer;
-    text-align: center;
-  }
-  
-  .project img {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .project h3 {
-    margin-top: 0;
-  }
-  
+body {
+  background: url("/public/images/fondoviu.png");
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.project-selection-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.project-selection {
+  background: rgba(0, 0, 0, 0.5); /* Fondo gris transparente */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  color: white;
+  width: 60%;
+}
+
+.project-selection h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: white; /* Texto blanco */
+}
+
+.project {
+  display: inline-block;
+  width: 30%;
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.project img {
+  width: 100px;
+  height: 100px;
+}
+
+.project h3 {
+  margin-top: 0;
+  color: white; /* Texto blanco */
+}

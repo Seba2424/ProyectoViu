@@ -1,31 +1,55 @@
 .evaluation-container {
-  width: 50%; /* Ajusta según sea necesario */
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  z-index: 1001;
+  width: 50% !important;
+  background-color: rgba(47, 47, 47, 0.9) !important; /* Fondo plomito oscuro con transparencia */
+  padding: 30px !important; 
+  border-radius: 10px !important;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5) !important;
+  z-index: 1001 !important;
+  color: white !important;
 }
 
-.question-container {
+
+.question-container p {
+  font-size: 18px !important; 
+  margin-bottom: 20px !important; 
+  line-height: 1.5 !important; 
+  color: white !important;
+}
+
+.question-container p {
+  font-size: 18px; /* Ajustamos el tamaño de la letra para mejor legibilidad */
+  margin-bottom: 20px; /* Añadimos más margen debajo de la pregunta */
+  line-height: 1.5; /* Mejora el espaciado entre líneas */
+  color: white; /* Asegura que las letras sean blancas */
+}
+
+.answer-button-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .answer-button {
-  margin: 10px;
-  padding: 10px 20px;
-  cursor: pointer;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  margin: 10px !important;
+  padding: 12px 25px !important; 
+  cursor: pointer !important;
+  background-color: #4CAF50 !important; 
+  border: none !important; 
+  color: white !important; 
+  border-radius: 5px !important;
+  transition: background-color 0.3s ease !important; 
+  font-size: 16px !important;
+}
+
+.answer-button:hover {
+  background-color: darkgreen; /* Fondo más oscuro al pasar el mouse */
 }
 
 .answer-button.selected {
-  background-color: #d3d3d3; /* Color de fondo más oscuro para indicar la selección */
-  color: #fff; /* Color del texto si es necesario */
+  background-color: #d3d3d3 !important; 
+  color: #fff !important; 
 }
+
 .navigation-buttons {
   display: flex;
   justify-content: space-between;
@@ -33,6 +57,16 @@
 }
 
 .navigation-buttons button {
-  padding: 10px 20px;
-  cursor: pointer;
+  padding: 12px 25px !important;
+  cursor: pointer !important;
+  background-color: #4CAF50 !important; 
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  transition: background-color 0.3s ease !important; 
+  font-size: 16px !important;
+}
+
+.navigation-buttons button:hover {
+  background-color: darkgreen !important; 
 }
