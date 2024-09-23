@@ -1,0 +1,11 @@
+.charts-container {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+
+canvas {
+  width: 100% !important;  /* Asegura que el canvas ocupe todo el espacio disponible */
+  height: 100% !important; /* Asegura que el canvas ocupe todo el espacio disponible */
+}

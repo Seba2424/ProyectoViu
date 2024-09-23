@@ -22,5 +22,21 @@
     "municipality": "Temuco",
     "commune": "Temuco",
     "role": "user"
+  },
+  {
+    "username": "MariaJesus",
+    "password": "1234",
+    "email": "Maria@falso.com",
+    "municipality": "Temuco",
+    "commune": "Temuco",
+    "role": "user"
+  },
+  {
+    "username": "nawel",
+    "password": "12345",
+    "email": "n.huenchuleo@ufromail.cl",
+    "municipality": "Temuco",
+    "commune": "Temuco",
+    "role": "user"
   }
 ]

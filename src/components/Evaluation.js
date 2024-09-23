@@ -65,9 +65,9 @@ const evaluationQuestions = {
           subcategoria:"Identificación de opositores durante la formulación del proyecto",
           preguntas: [
           {
-            tipo: "si_no",
+            tipo: "opcion_multiple",
             pregunta: "¿Durante la formulación del proyecto de infraestructura, se identificaron grupos o individuos que se opusieron activamente al mismo?",
-          
+            opciones: ["Sí", "No","No lo se"],
           },
           {
             tipo: "si_no",
@@ -76,7 +76,7 @@ const evaluationQuestions = {
         ]
       },
       {
-        subcategoria:"Apoyo mayoritario de la población local a la construcción de la infraestructura",
+        subcategoria: "Apoyo mayoritario de la población local a la construcción de la infraestructura",
         preguntas: [
           {
             tipo: "si_no",
@@ -185,6 +185,7 @@ const evaluationQuestions = {
     }
   ]
 };
+
 const Evaluation = ({ onEvaluationComplete, projectType }) => {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentSubCategoryIndex, setCurrentSubCategoryIndex] = useState(0);
@@ -194,42 +195,47 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
 
   const questions = evaluationQuestions[projectType];
   const currentCategory = questions[currentCategoryIndex];
-  const subcategories = currentCategory?.subcategorias || [];
+  const subcategories = currentCategory.subcategorias || [];
   const currentSubCategory = subcategories[currentSubCategoryIndex];
-  const currentQuestions = currentSubCategory ? currentSubCategory.preguntas : currentCategory?.preguntas || [];
+  const currentQuestions = currentSubCategory ? currentSubCategory.preguntas : currentCategory.preguntas;
   const currentQuestion = currentQuestions[currentQuestionIndex];
 
-  const handleAnswer = (answer) => {
-    const updatedAnswers = [...answers];
-    if (!updatedAnswers[currentCategoryIndex]) {
-      updatedAnswers[currentCategoryIndex] = [];
-    }
-    if (!updatedAnswers[currentCategoryIndex][currentSubCategoryIndex]) {
-      updatedAnswers[currentCategoryIndex][currentSubCategoryIndex] = [];
-    }
-    updatedAnswers[currentCategoryIndex][currentSubCategoryIndex][currentQuestionIndex] = answer;
-    setAnswers(updatedAnswers);
+  const isLastQuestion = currentCategoryIndex === questions.length - 1 &&
+                         currentSubCategoryIndex === subcategories.length - 1 &&
+                         currentQuestionIndex === currentQuestions.length - 1;
 
-    if (currentQuestion.tipo !== 'abierta') {
-      proceedToNextQuestion();
-    }
-  };
+                         const handleAnswer = (answer) => {
+                          const updatedAnswers = [...answers];
+                          if (!updatedAnswers[currentCategoryIndex]) {
+                            updatedAnswers[currentCategoryIndex] = [];
+                          }
+                          if (!updatedAnswers[currentCategoryIndex][currentSubCategoryIndex]) {
+                            updatedAnswers[currentCategoryIndex][currentSubCategoryIndex] = [];
+                          }
+                          updatedAnswers[currentCategoryIndex][currentSubCategoryIndex][currentQuestionIndex] = answer || '';
+                          setAnswers(updatedAnswers);
+                      
+                          console.log(`Guardando respuesta: ${answer || ''}`); // Imprimir la respuesta guardada
+                      
+                          if (!isLastQuestion) {
+                            proceedToNextQuestion();
+                          }
+                        };
 
-  const proceedToNextQuestion = () => {
-    if (currentQuestionIndex < currentQuestions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentSubCategoryIndex < subcategories.length - 1) {
-      setCurrentSubCategoryIndex(currentSubCategoryIndex + 1);
-      setCurrentQuestionIndex(0);
-    } else if (currentCategoryIndex < questions.length - 1) {
-      setCurrentCategoryIndex(currentCategoryIndex + 1);
-      setCurrentSubCategoryIndex(0);
-      setCurrentQuestionIndex(0);
-    } else {
-      onEvaluationComplete(answers);
-    }
-  };
-
+                        const proceedToNextQuestion = () => {
+                          if (currentQuestionIndex < currentQuestions.length - 1) {
+                            setCurrentQuestionIndex(currentQuestionIndex + 1);
+                          } else if (currentSubCategoryIndex < subcategories.length - 1) {
+                            setCurrentSubCategoryIndex(currentSubCategoryIndex + 1);
+                            setCurrentQuestionIndex(0);
+                          } else if (currentCategoryIndex < questions.length - 1) {
+                            setCurrentCategoryIndex(currentCategoryIndex + 1);
+                            setCurrentSubCategoryIndex(0);
+                            setCurrentQuestionIndex(0);
+                          }
+                          setOpenText(''); // Limpiar el texto después de avanzar
+                        };
+                      
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
@@ -251,11 +257,30 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
     ) {
       return answers[currentCategoryIndex][currentSubCategoryIndex][currentQuestionIndex];
     }
-    return '';
+    return null;
   };
 
-  const selectedAnswer = getSelectedAnswer();
+  useEffect(() => {
+    const selectedAnswer = getSelectedAnswer();
+    if (currentQuestion.tipo === 'abierta' && selectedAnswer) {
+      setOpenText(selectedAnswer);
+    } else {
+      setOpenText('');
+    }
+  }, [currentQuestionIndex, currentSubCategoryIndex, currentCategoryIndex]);
 
+  const handleViewCharts = () => {
+    onEvaluationComplete(answers);
+  };
+
+
+  const handleNext = () => {
+    handleAnswer(currentQuestion.tipo === 'abierta' ? openText : null);
+  };
+
+
+
+  const selectedAnswer = getSelectedAnswer();
   return (
     <div className="evaluation-container">
       <h2>{currentCategory.categoria}</h2>
@@ -265,13 +290,13 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
         {currentQuestion.tipo === "si_no" ? (
           <>
             <button
-              className={`answer-button ${selectedAnswer === 'Sí' ? 'selected' : ''}`}
+              className={`answer-button ${answers[currentCategoryIndex]?.[currentSubCategoryIndex]?.[currentQuestionIndex] === 'Sí' ? 'selected' : ''}`}
               onClick={() => handleAnswer('Sí')}
             >
               Sí
             </button>
             <button
-              className={`answer-button ${selectedAnswer === 'No' ? 'selected' : ''}`}
+              className={`answer-button ${answers[currentCategoryIndex]?.[currentSubCategoryIndex]?.[currentQuestionIndex] === 'No' ? 'selected' : ''}`}
               onClick={() => handleAnswer('No')}
             >
               No
@@ -282,7 +307,7 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
             {currentQuestion.opciones.map((opcion, index) => (
               <button
                 key={index}
-                className={`answer-button ${selectedAnswer === opcion ? 'selected' : ''}`}
+                className={`answer-button ${answers[currentCategoryIndex]?.[currentSubCategoryIndex]?.[currentQuestionIndex] === opcion ? 'selected' : ''}`}
                 onClick={() => handleAnswer(opcion)}
               >
                 {opcion}
@@ -293,30 +318,48 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
           <>
             <textarea
               placeholder="Escriba su respuesta aquí..."
-              value={openText || selectedAnswer}
+              value={openText}
               onChange={(e) => setOpenText(e.target.value)}
             />
           </>
         )}
       </div>
       <div className="navigation-buttons">
-        <button onClick={handlePrevious} disabled={currentCategoryIndex === 0 && currentSubCategoryIndex === 0 && currentQuestionIndex === 0}>Anterior</button>
         <button
           onClick={() => {
-            if (currentQuestion.tipo === 'abierta') {
-              handleAnswer(openText);
-              setOpenText('');
-              proceedToNextQuestion(); // Asegura que avanza a la siguiente pregunta
-            } else {
-              proceedToNextQuestion();
+            if (currentQuestionIndex > 0) {
+              setCurrentQuestionIndex(currentQuestionIndex - 1);
+            } else if (currentSubCategoryIndex > 0) {
+              setCurrentSubCategoryIndex(currentSubCategoryIndex - 1);
+              setCurrentQuestionIndex(currentQuestions.length - 1);
+            } else if (currentCategoryIndex > 0) {
+              setCurrentCategoryIndex(currentCategoryIndex - 1);
+              setCurrentSubCategoryIndex(subcategories.length - 1);
+              setCurrentQuestionIndex(currentQuestions.length - 1);
             }
+            setOpenText(answers[currentCategoryIndex]?.[currentSubCategoryIndex]?.[currentQuestionIndex] || '');
           }}
+          disabled={currentCategoryIndex === 0 && currentSubCategoryIndex === 0 && currentQuestionIndex === 0}
         >
-          {currentCategoryIndex === questions.length - 1 && currentSubCategoryIndex === subcategories.length - 1 && currentQuestionIndex === currentQuestions.length - 1 ? 'Finalizar' : 'Siguiente'}
+          Anterior
+        </button>
+        {isLastQuestion && (
+          <button
+            className="view-charts-button"
+            onClick={handleViewCharts}
+          >
+            Ver gráficos
+          </button>
+        )}
+        <button
+          onClick={() => handleAnswer(openText)}
+        >
+          {isLastQuestion ? 'Finalizar' : 'Siguiente'}
         </button>
       </div>
     </div>
   );
 };
+
 
 export default Evaluation;

@@ -3,20 +3,24 @@ import Login from './components/Login';
 import ProjectSelection from './components/ProjectSelection';
 import ProjectForm from './components/ProjectForm';
 import Map from './components/Map';
+import Charts from './components/Charts';  // Importa el componente Charts
 import './App.css';
+
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [projectData, setProjectData] = useState(null);
   const [isEvaluating, setIsEvaluating] = useState(false);
-  const [projectType, setProjectType] = useState(null); // Estado para guardar el tipo de proyecto
+  const [projectType, setProjectType] = useState(null);
+  const [showCharts, setShowCharts] = useState(false); // Estado para mostrar los gráficos
+  const [answers, setAnswers] = useState([]); // Estado para las respuestas de la evaluación
 
   const handleLogin = () => {
     setLoggedIn(true);
   };
 
   const handleSelectProject = (type) => {
-    setProjectType(type); // Guardar el tipo de proyecto seleccionado
+    setProjectType(type);
   };
 
   const handleFormSubmit = (data) => {
@@ -29,7 +33,11 @@ const App = () => {
 
   const handleEvaluationComplete = (answers) => {
     console.log('Evaluación completada con respuestas:', answers);
+    setAnswers(answers);  // Guardar las respuestas
+    setShowCharts(true);  // Mostrar los gráficos
   };
+
+  
 
   return (
     <div className="app-container">
@@ -41,13 +49,23 @@ const App = () => {
         <ProjectForm onSubmitForm={handleFormSubmit} />
       ) : (
         <>
-          <Map 
-            projectData={projectData} 
-            onStartEvaluation={handleStartEvaluation} 
-            isEvaluating={isEvaluating} 
-            onEvaluationComplete={handleEvaluationComplete} 
-            projectType={projectType} // Pasar projectType como prop
-          />
+          {!showCharts ? (
+            <Map 
+              projectData={projectData} 
+              onStartEvaluation={handleStartEvaluation} 
+              isEvaluating={isEvaluating} 
+              onEvaluationComplete={handleEvaluationComplete} 
+              projectType={projectType} 
+            />
+          ) : (
+            <div className="charts-container">
+              <Charts 
+        answers={answers}
+        category="OPINIÓN SOCIAL"
+        subcategories={['Identificación de opositores durante la formulación del proyecto']} 
+      />
+            </div>
+          )}
         </>
       )}
     </div>
