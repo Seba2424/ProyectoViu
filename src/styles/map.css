@@ -6,7 +6,7 @@
 
 .project-info {
   width: 30%;
-  background-color: rgba(47, 47, 47, 0.85); /* Gris oscuro con transparencia */
+  background-color: rgba(249, 245, 245, 0.85); /* Gris oscuro con transparencia */
   padding: 20px;
   overflow-y: auto;
   z-index: 2;
@@ -63,7 +63,7 @@
 #map {
   width: 70%;
   height: 100%;
-  background-color: #171616; /* Fondo oscuro para el mapa */
+  background-color: #f8f7f7; /* Fondo oscuro para el mapa */
   z-index: 1;
   position: relative;
 }

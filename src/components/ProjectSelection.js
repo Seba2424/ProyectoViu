@@ -15,11 +15,11 @@ const ProjectSelection = ({ onSelectProject }) => {
           <h3>DRENAJE URBANO</h3>
         </div>
         <div className="project" onClick={() => selectProject('caminos')}>
-          <img src="/images/CaminosBasicos.png" alt="Caminos Básicos" />
+          <img src="/images/CaminoRural.png" alt="Caminos Básicos" />
           <h3>CAMINOS BÁSICOS</h3>
         </div>
         <div className="project" onClick={() => selectProject('pavimentacion')}>
-          <img src="/images/Pavimentacion.png" alt="Pavimentación Urbana" />
+          <img src="/images/PaviUrbana.png" alt="Pavimentación Urbana" />
           <h3>PAVIMENTACIÓN URBANA</h3>
         </div>
       </div>

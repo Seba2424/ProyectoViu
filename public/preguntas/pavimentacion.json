@@ -1,0 +1,78 @@
+{
+    "pavimentacion": [
+      {
+        "categoria": "AHORRO DE TIEMPO",
+        "preguntas": [
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se han llevado a cabo estudios preliminares para evaluar el potencial impacto de la pavimentación urbana en el tiempo de desplazamiento de los residentes en la zona?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se ha realizado algún análisis teórico o proyecciones sobre el posible impacto en el tiempo de desplazamiento de los residentes después de la pavimentación urbana, considerando los cambios esperados en la infraestructura vial?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se han identificado posibles medidas adicionales para mejorar la movilidad en la zona durante el proceso de pavimentación urbana, como desvíos de tráfico temporales o transporte público alternativo?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se han implementado mecanismos para recopilar la retroalimentación de los residentes y partes interesadas sobre sus expectativas y preocupaciones relacionadas con la pavimentación urbana planificada?"
+          }
+        ]
+      },
+      {
+        "categoria": "CARACTERÍSTICAS DEL ENTORNO",
+        "subcategorias": [
+          {
+            "subcategoria": "Número de locales comerciales beneficiados",
+            "preguntas": [
+              {
+                "tipo": "si_no",
+                "pregunta": "¿Se ha realizado un censo o análisis previo para determinar el número de locales comerciales en la zona de influencia del proyecto?"
+              },
+              {
+                "tipo": "abierta",
+                "pregunta": "¿Cuántos locales comerciales aproximadamente se encuentran actualmente en la zona y podrían potencialmente beneficiarse de la implementación del proyecto?"
+              },
+              {
+                "tipo": "si_no",
+                "pregunta": "¿Se ha estimado cuántos de estos locales comerciales podrían experimentar un aumento en su clientela o ventas como resultado del proyecto?"
+              }
+            ]
+          },
+          {
+            "subcategoria": "Número de familias/hogares beneficiados",
+            "preguntas": [
+              {
+                "tipo": "si_no",
+                "pregunta": "¿Existe información disponible sobre la cantidad de familias o hogares que residen en el área donde se llevará a cabo el proyecto?"
+              },
+              {
+                "tipo": "abierta",
+                "pregunta": "¿Cuántas familias o hogares aproximadamente se verán directamente afectados por el proyecto, ya sea de manera positiva o negativa?"
+              },
+              {
+                "tipo": "si_no",
+                "pregunta": "¿Se ha estimado cuántas de estas familias o hogares podrían experimentar mejoras en su calidad de vida como resultado del proyecto?"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "categoria": "CERCANIA A INFRAESTRUCTURAS PÚBLICAS",
+        "preguntas": [
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Existen instalaciones críticas, como centros de salud, establecimientos educativos y servicios de emergencia, en las proximidades del área del proyecto?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se ha realizado un análisis de la distancia entre estas infraestructuras públicas y las áreas afectadas por el proyecto?"
+          }
+        ]
+      }
+    ]
+  }
+  

@@ -1,0 +1,55 @@
+{
+    "drenaje": [
+      {
+        "categoria": "ACCESO A SERVICIOS DE EMERGENCIA",
+        "preguntas": [
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se ha realizado una planificación específica para garantizar que los servicios de emergencia tengan un acceso rápido y eficiente al sitio de la infraestructura durante la fase de construcción?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿El diseño del proyecto incluye medidas para asegurar un acceso óptimo de los servicios de emergencia durante la etapa operativa, considerando factores como la ubicación estratégica de los puntos de acceso, la disponibilidad de rutas alternativas en caso de emergencia y la señalización adecuada?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se han establecido protocolos claros de coordinación entre los responsables del proyecto y los servicios de emergencia locales para garantizar una respuesta efectiva en situaciones de crisis durante la construcción y la operación del proyecto?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Existe un plan de acción detallado que defina roles y responsabilidades específicas tanto para el personal del proyecto como para los servicios de emergencia en caso de eventos adversos durante todas las etapas del proyecto?"
+          }
+        ]
+      },
+      {
+        "categoria": "ACEPTACIÓN DE LAS PARTES INTERESADAS",
+        "preguntas": [
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se ha realizado un análisis económico para determinar el costo total del proyecto de drenaje urbano, incluyendo construcción, mantenimiento y posibles gastos ambientales?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Existen datos sobre la aceptación pública del diseño y tipo de drenaje propuesto, basados en encuestas o consultas formales?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Se han realizado talleres o reuniones comunitarias específicamente relacionadas con el proyecto de drenaje urbano en el último año?"
+          },
+          {
+            "tipo": "si_no",
+            "pregunta": "¿Dentro del proyecto se ha asignado un presupuesto específico para la participación ciudadana en la mejora continua del sistema de drenaje urbano?"
+          },
+          {
+            "tipo": "abierta",
+            "pregunta": "¿Qué porcentaje de los residentes encuestados están de acuerdo con la implementación de medidas de drenaje específicas, según datos recopilados en encuestas recientes?"
+          },
+          {
+            "tipo": "abierta",
+            "pregunta": "¿Cuántas quejas o sugerencias relacionadas con el diseño del proyecto de sistema de drenaje urbano han sido registradas por la municipalidad?"
+          }
+        ]
+      }
+    ]
+  }
+  

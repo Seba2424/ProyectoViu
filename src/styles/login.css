@@ -27,18 +27,28 @@ body {
     text-align: center;
     width: 300px;
     color: #f1f1f1; /* Color más claro para el texto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Asegura que todo esté centrado */
 }
+
 
 .login-form .avatar {
     margin-bottom: 20px;
+    width: 120px; /* Ajusta el tamaño según lo necesario */
+    height: auto; /* Mantén la proporción de la imagen */
+    display: flex;
+    justify-content: center;
 }
 
 .login-form .avatar img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: auto; /* Mantén la proporción de la imagen */
+    background-color: transparent; /* Asegura que no haya fondo */
+    border-radius: 0; /* Elimina el borde circular */
+    object-fit: contain; /* Ajusta el contenido para que no se recorte */
 }
-
 .login-form h2 {
     margin-bottom: 20px;
     font-weight: bold;

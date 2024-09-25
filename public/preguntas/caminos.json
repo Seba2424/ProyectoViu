@@ -1,0 +1,52 @@
+{
+    "caminos": [
+      {
+        "categoria": "OPINIÓN SOCIAL",
+        "subcategorias": [
+          {
+            "subcategoria": "Identificación de opositores durante la formulación del proyecto",
+            "preguntas": [
+              {
+                "tipo": "opcion_multiple",
+                "pregunta": "¿Durante la formulación del proyecto de infraestructura, se identificaron grupos o individuos que se opusieron activamente al mismo?",
+                "opciones": ["Sí", "No", "No lo sé"]
+              },
+              {
+                "tipo": "si_no",
+                "pregunta": "¿La municipalidad puede confirmar si se documentaron y consideraron las opiniones de los opositores durante el proceso de formulación del proyecto?"
+              }
+            ]
+          },
+          {
+            "subcategoria": "Apoyo mayoritario de la población local a la construcción de la infraestructura",
+            "preguntas": [
+              {
+                "tipo": "si_no",
+                "pregunta": "¿En la población que rodea el proyecto, la mayoría de los residentes apoyan la construcción de la infraestructura propuesta?"
+              },
+              {
+                "tipo": "si_no",
+                "pregunta": "¿La municipalidad cuenta con datos o encuestas que respalden la afirmación de que existe un apoyo mayoritario de la comunidad local hacia el proyecto?"
+              }
+            ]
+          },
+          {
+            "subcategoria": "Percepción general de las opiniones generadas sobre la infraestructura",
+            "preguntas": [
+              {
+                "tipo": "opcion_multiple",
+                "pregunta": "¿La mayoría de las opiniones expresadas por la comunidad y otras partes interesadas sobre la infraestructura propuesta son mayoritariamente positivas o negativas?",
+                "opciones": ["Mayormente positiva", "Mayormente negativa"]
+              },
+              {
+                "tipo": "opcion_multiple",
+                "pregunta": "¿La municipalidad ha llevado a cabo alguna evaluación o encuesta de opinión para determinar la percepción general de la comunidad hacia el proyecto?",
+                "opciones": ["Mayormente positiva", "Mayormente negativa"]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
