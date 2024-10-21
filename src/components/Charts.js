@@ -1,48 +1,90 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart } from 'chart.js/auto';
-import '../styles/charts.css'; // Asegúrate de que este archivo CSS esté importado
+import '../styles/charts.css';
 
-const Charts = () => {
-  const chartRef = useRef(null);
-  const chartInstance = useRef(null);
+const Charts = ({ answers, categories, subcategories }) => {
+  const chartRefs = useRef([]);
+  const chartInstances = useRef([]);
 
   useEffect(() => {
-    const ctx = chartRef.current.getContext('2d');
+    console.log('Respuestas recibidas en Charts:', answers);
 
-    if (chartInstance.current) {
-      chartInstance.current.destroy();
-    }
-
-    chartInstance.current = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Sí', 'No'],
-        datasets: [
-          {
-            label: 'Resultados',
-            data: [2, 1], // Datos de ejemplo: 2 respuestas "Sí" y 1 respuesta "No"
-            backgroundColor: ['#36A2EB', '#FF6384'],
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
+    // Limpiar las instancias de gráficos previas
+    chartInstances.current.forEach((instance) => {
+      if (instance && typeof instance.destroy === 'function') {
+        instance.destroy();
+      }
     });
 
+    // Reiniciar la lista de instancias de gráficos
+    chartInstances.current = [];
+
+    // Crear nuevos gráficos
+    answers.forEach((categoryAnswers, categoryIndex) => {
+      categoryAnswers.forEach((subcategoryAnswers, subcategoryIndex) => {
+        const canvasElement = chartRefs.current[categoryIndex]?.[subcategoryIndex];
+
+        if (canvasElement) {
+          const ctx = canvasElement.getContext('2d');
+          const newChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Sí', 'No'],
+              datasets: [
+                {
+                  label: 'Resultados',
+                  data: [
+                    subcategoryAnswers.filter((answer) => answer === 'Sí').length,
+                    subcategoryAnswers.filter((answer) => answer === 'No').length,
+                  ],
+                  backgroundColor: ['#36A2EB', '#FF6384'],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+            },
+          });
+          chartInstances.current.push(newChart);
+        }
+      });
+    });
+
+    // Cleanup para destruir los gráficos al desmontar el componente
     return () => {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-      }
+      chartInstances.current.forEach((instance) => {
+        if (instance && typeof instance.destroy === 'function') {
+          instance.destroy();
+        }
+      });
     };
-  }, []);
+  }, [answers, categories, subcategories]);
+
+  if (!answers || answers.length === 0) {
+    return <div>No se encontraron respuestas para generar gráficos.</div>;
+  }
 
   return (
     <div className="charts-container">
-      <h3>OPINIÓN SOCIAL</h3>
-      <h4>Identificación de opositores durante la formulación del proyecto</h4>
-      <canvas ref={chartRef}></canvas>
+      {categories.map((category, categoryIndex) => (
+        <div key={categoryIndex} className="chart-category">
+          <h3>{category}</h3>
+          {subcategories[categoryIndex].map((subcategory, subcategoryIndex) => (
+            <div key={subcategoryIndex} className="chart-item">
+              <h4>{subcategory}</h4>
+              <canvas
+                ref={(el) => {
+                  if (!chartRefs.current[categoryIndex]) {
+                    chartRefs.current[categoryIndex] = [];
+                  }
+                  chartRefs.current[categoryIndex][subcategoryIndex] = el;
+                }}
+              ></canvas>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 };

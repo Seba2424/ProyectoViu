@@ -47,6 +47,50 @@
           }
         ]
       }
+      ,{
+        "categoria": "VALORACIÓN Y REPUTACIÓN",
+        "subcategorias": [
+          {
+            "subcategoria": "Historial de proyectos anteriores",
+            "preguntas": [
+              {
+                "tipo": "si_no",
+                "pregunta": "¿La municipalidad ha ejecutado proyectos similares en el pasado?"
+              },
+              {
+                "tipo": "si_no",
+                "pregunta": "¿La municipalidad ha completado proyectos similares en el pasado que hayan sido recibidos de manera positiva por la comunidad?"
+              }
+            ]
+          },
+          {
+            "subcategoria": "Experiencia y capacitación del personal:",
+            "preguntas": [
+              {
+                "tipo": "si_no",
+                "pregunta": "¿Los funcionarios municipales encargados de la gestión del proyecto en cuestión tienen experiencia y capacitación en esa área?"
+              },
+              {
+                "tipo": "si_no",
+                "pregunta": "¿Se ha proporcionado capacitación específica relacionada con el proyecto a los empleados municipales relevantes?"
+              }
+            ]
+          },
+          {
+            "subcategoria": "Transparencia y comunicación",
+            "preguntas": [
+              {
+                "tipo": "si_no",
+                "pregunta": "¿Cómo ha sido la comunicación y transparencia de la municipalidad en proyectos anteriores?"
+              },
+              {
+                "tipo": "si_no",
+                "pregunta": "¿Se proporciona información clara y oportuna sobre el progreso y los detalles del proyecto a la comunidad y los interesados clave?"
+              }
+            ]
+          }
+        ]
+      }
     ]
   }
   

@@ -6,7 +6,6 @@ import Map from './components/Map';
 import Charts from './components/Charts';  // Importa el componente Charts
 import './App.css';
 
-
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [projectData, setProjectData] = useState(null);
@@ -31,13 +30,11 @@ const App = () => {
     setIsEvaluating(true);
   };
 
-  const handleEvaluationComplete = (answers) => {
-    console.log('Evaluación completada con respuestas:', answers);
-    setAnswers(answers);  // Guardar las respuestas
+  const handleEvaluationComplete = (collectedAnswers) => {
+    console.log('Evaluación completada con respuestas:', collectedAnswers);
+    setAnswers(collectedAnswers);  // Guardar las respuestas
     setShowCharts(true);  // Mostrar los gráficos
   };
-
-  
 
   return (
     <div className="app-container">
@@ -60,10 +57,13 @@ const App = () => {
           ) : (
             <div className="charts-container">
               <Charts 
-        answers={answers}
-        category="OPINIÓN SOCIAL"
-        subcategories={['Identificación de opositores durante la formulación del proyecto']} 
-      />
+                answers={answers}
+                categories={["OPINIÓN SOCIAL", "VALORACIÓN Y REPUTACIÓN"]}
+                subcategories={[
+                  ['Identificación de opositores durante la formulación del proyecto', 'Apoyo mayoritario de la población local a la construcción de la infraestructura', 'Percepción general de las opiniones generadas sobre la infraestructura'],
+                  ['Historial de proyectos anteriores', 'Experiencia y capacitación del personal', 'Transparencia y comunicación']
+                ]}
+              />
             </div>
           )}
         </>

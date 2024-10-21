@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Evaluation.css';
+import caminos from '../preguntas/caminos.json';
+import drenaje from '../preguntas/drenaje.json';
+import pavimentacion from '../preguntas/pavimentacion.json';
 
 const Evaluation = ({ onEvaluationComplete, projectType }) => {
   const [questions, setQuestions] = useState([]);
@@ -12,24 +15,19 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
 
   // Cargar el archivo JSON según el tipo de proyecto
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch(`/preguntas/${projectType}.json`);
-        if (!response.ok) {
-          throw new Error('Error al cargar el archivo JSON');
-        }
-        const data = await response.json();
-        setQuestions(data); // Almacenar las preguntas en el estado
-        setLoading(false);  // Indicar que la carga ha terminado
-      } catch (error) {
-        console.error('Error al cargar las preguntas:', error);
-        setLoading(false); // Incluso si hay error, dejar de cargar
-      }
-    };
+    let data;
+    if (projectType === 'caminos') {
+      data = caminos.caminos; // Acceder al array dentro del objeto 'caminos'
+    } else if (projectType === 'drenaje') {
+      data = drenaje.drenaje; // Acceder al array dentro del objeto 'drenaje'
+    } else if (projectType === 'pavimentacion') {
+      data = pavimentacion.pavimentacion; // Acceder al array dentro del objeto 'pavimentacion'
+    }
   
-    fetchQuestions();
+    console.log("Datos cargados:", data); // Verifica los datos cargados
+    setQuestions(data || []);
+    setLoading(false); // Termina el loading
   }, [projectType]);
-  
 
 
   const getSelectedAnswer = () => {
