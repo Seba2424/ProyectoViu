@@ -1,6 +1,4 @@
 body {
-    background:url("/public/images/fondoviu.png");
-    background-size: cover;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -8,6 +6,16 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+#background-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* Mantener el video en el fondo */
+    object-fit: cover; /* Asegura que el video cubra todo el fondo */
 }
 
 .login-container {
@@ -19,47 +27,48 @@ body {
 }
 
 .login-form {
-    background: rgba(0, 0, 0, 0.6); /* Más oscuro para mejor contraste */
+    background: rgba(0, 0, 0, 0.6); /* Mantiene el contraste del formulario */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     text-align: center;
     width: 300px;
-    color: #f1f1f1; /* Color más claro para el texto */
+    color: #f1f1f1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; /* Asegura que todo esté centrado */
+    align-items: center;
 }
-
 
 .login-form .avatar {
     margin-bottom: 20px;
-    width: 120px; /* Ajusta el tamaño según lo necesario */
-    height: auto; /* Mantén la proporción de la imagen */
+    width: 120px; 
+    height: auto;
     display: flex;
     justify-content: center;
+    background-color: white; /* Fondo blanco para el icono */
+    padding: 10px; /* Un pequeño padding para evitar que la imagen toque los bordes */
+    border-radius: 10px; /* Un borde suave si lo prefieres */
 }
 
 .login-form .avatar img {
-    width: 100%; /* Ocupa todo el ancho del contenedor */
-    height: auto; /* Mantén la proporción de la imagen */
-    background-color: transparent; /* Asegura que no haya fondo */
-    border-radius: 0; /* Elimina el borde circular */
-    object-fit: contain; /* Ajusta el contenido para que no se recorte */
+    width: 100%; 
+    height: auto; 
+    object-fit: contain;
 }
+
 .login-form h2 {
     margin-bottom: 20px;
     font-weight: bold;
-    color: #f1f1f1; /* Asegúrate de que el encabezado también tenga buen contraste */
+    color: #f1f1f1;
 }
 
 .login-form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #f1f1f1; /* Color más claro para las etiquetas */
+    color: #f1f1f1;
 }
 
 .login-form input[type="text"], 
@@ -70,21 +79,9 @@ body {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo más claro en los inputs */
-    color: #000; /* Texto oscuro para los inputs */
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #000;
     outline: none;
-}
-
-.login-form .options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.login-form .options a {
-    color: #f1f1f1; /* Cambiar el color de los enlaces para mejor contraste */
-    text-decoration: none;
 }
 
 .login-form button {

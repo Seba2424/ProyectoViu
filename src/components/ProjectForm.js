@@ -25,6 +25,9 @@ const ProjectForm = ({ onSubmitForm }) => {
 
   return (
     <div className="project-form-container">
+      <video autoPlay muted loop id="background-video">
+      <source src="/images/VideoFondo.mp4" type="video/mp4" />
+      </video>
       <form onSubmit={handleSubmit} className="project-form">
         <h2>Complete el formulario</h2>
         <label>Nombre del proyecto:</label>

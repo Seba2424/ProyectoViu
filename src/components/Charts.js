@@ -67,6 +67,9 @@ const Charts = ({ answers, categories, subcategories }) => {
 
   return (
     <div className="charts-container">
+      <video autoPlay muted loop id="background-video">
+      <source src="/images/VideoFondo.mp4" type="video/mp4" />
+      </video>
       {categories.map((category, categoryIndex) => (
         <div key={categoryIndex} className="chart-category">
           <h3>{category}</h3>

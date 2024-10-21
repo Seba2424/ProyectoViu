@@ -70,11 +70,11 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login-container">
+      <video autoPlay muted loop id="background-video">
+      <source src="/images/VideoFondo.mp4" type="video/mp4" />
+      </video>
       {isRegistering ? (
         <div className="login-form">
-          <div className="avatar">
-            <img src="/images/logoViuSinFondo.png" alt="Avatar" />
-          </div>
           <h2>Registro</h2>
           <form id="register-form" onSubmit={handleRegister}>
             <label htmlFor="new-username">Usuario:</label>

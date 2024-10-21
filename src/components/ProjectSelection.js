@@ -8,6 +8,9 @@ const ProjectSelection = ({ onSelectProject }) => {
 
   return (
     <div className="project-selection-container">
+      <video autoPlay muted loop id="background-video">
+      <source src="/images/VideoFondo.mp4" type="video/mp4" />
+      </video>
       <div className="project-selection">
         <h2>Seleccione el tipo de proyecto a evaluar</h2>
         <div className="project" onClick={() => selectProject('drenaje')}>
