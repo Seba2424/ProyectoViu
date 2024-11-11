@@ -2,56 +2,65 @@ import React, { useEffect, useRef } from 'react';
 import { Chart } from 'chart.js/auto';
 import '../styles/charts.css';
 
-const Charts = ({ answers, categories, subcategories }) => {
+const Charts = ({ answers, categories }) => {
   const chartRefs = useRef([]);
   const chartInstances = useRef([]);
 
-  useEffect(() => {
-    console.log('Respuestas recibidas en Charts:', answers);
+  // Función para agrupar las respuestas por categoría
+  const groupAnswersByCategory = () => {
+    return categories.map((category, categoryIndex) => {
+      let siCount = 0;
+      let noCount = 0;
 
-    // Limpiar las instancias de gráficos previas
+      if (answers[categoryIndex]) {
+        answers[categoryIndex].forEach((subcategoryAnswers) => {
+          siCount += subcategoryAnswers.filter((answer) => answer === 'Sí').length;
+          noCount += subcategoryAnswers.filter((answer) => answer === 'No').length;
+        });
+      }
+
+      return { category, siCount, noCount };
+    });
+  };
+
+  useEffect(() => {
+    console.log('Respuestas agrupadas por categoría:', answers);
+
     chartInstances.current.forEach((instance) => {
       if (instance && typeof instance.destroy === 'function') {
         instance.destroy();
       }
     });
 
-    // Reiniciar la lista de instancias de gráficos
     chartInstances.current = [];
+    const groupedData = groupAnswersByCategory();
 
-    // Crear nuevos gráficos
-    answers.forEach((categoryAnswers, categoryIndex) => {
-      categoryAnswers.forEach((subcategoryAnswers, subcategoryIndex) => {
-        const canvasElement = chartRefs.current[categoryIndex]?.[subcategoryIndex];
+    groupedData.forEach((data, index) => {
+      const canvasElement = chartRefs.current[index];
 
-        if (canvasElement) {
-          const ctx = canvasElement.getContext('2d');
-          const newChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-              labels: ['Sí', 'No'],
-              datasets: [
-                {
-                  label: 'Resultados',
-                  data: [
-                    subcategoryAnswers.filter((answer) => answer === 'Sí').length,
-                    subcategoryAnswers.filter((answer) => answer === 'No').length,
-                  ],
-                  backgroundColor: ['#36A2EB', '#FF6384'],
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-            },
-          });
-          chartInstances.current.push(newChart);
-        }
-      });
+      if (canvasElement) {
+        const ctx = canvasElement.getContext('2d');
+        const newChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Sí', 'No'],
+            datasets: [
+              {
+                label: 'Resultados',
+                data: [data.siCount, data.noCount],
+                backgroundColor: ['#36A2EB', '#FF6384'],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+        chartInstances.current.push(newChart);
+      }
     });
 
-    // Cleanup para destruir los gráficos al desmontar el componente
     return () => {
       chartInstances.current.forEach((instance) => {
         if (instance && typeof instance.destroy === 'function') {
@@ -59,7 +68,7 @@ const Charts = ({ answers, categories, subcategories }) => {
         }
       });
     };
-  }, [answers, categories, subcategories]);
+  }, [answers, categories]);
 
   if (!answers || answers.length === 0) {
     return <div>No se encontraron respuestas para generar gráficos.</div>;
@@ -68,24 +77,20 @@ const Charts = ({ answers, categories, subcategories }) => {
   return (
     <div className="charts-container">
       <video autoPlay muted loop id="background-video">
-      <source src="/images/VideoFondo.mp4" type="video/mp4" />
+        <source src="/images/VideoFondo.mp4" type="video/mp4" />
       </video>
-      {categories.map((category, categoryIndex) => (
-        <div key={categoryIndex} className="chart-category">
+      {categories.map((category, index) => (
+        <div key={index} className="chart-category">
           <h3>{category}</h3>
-          {subcategories[categoryIndex].map((subcategory, subcategoryIndex) => (
-            <div key={subcategoryIndex} className="chart-item">
-              <h4>{subcategory}</h4>
-              <canvas
-                ref={(el) => {
-                  if (!chartRefs.current[categoryIndex]) {
-                    chartRefs.current[categoryIndex] = [];
-                  }
-                  chartRefs.current[categoryIndex][subcategoryIndex] = el;
-                }}
-              ></canvas>
-            </div>
-          ))}
+          <canvas
+            ref={(el) => {
+              chartRefs.current[index] = el;
+            }}
+          ></canvas>
+          <div className="chart-data-summary">
+            <span style={{ color: '#36A2EB', fontWeight: 'bold' }}>Sí: {groupAnswersByCategory()[index].siCount}</span> |{' '}
+            <span style={{ color: '#FF6384', fontWeight: 'bold' }}>No: {groupAnswersByCategory()[index].noCount}</span>
+          </div>
         </div>
       ))}
     </div>

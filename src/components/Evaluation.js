@@ -224,12 +224,6 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
         )}
       </div>
       {/* Mostrar los datos de depuración */}
-      <div>
-        <h4>Depuración:</h4>
-        <p>Categoria: {currentCategoryIndex} / {questions.length - 1}</p>
-        <p>Subcategoria: {currentSubCategoryIndex} / {subcategories.length - 1}</p>
-        <p>Pregunta: {currentQuestionIndex} / {currentQuestions.length - 1}</p>
-      </div>
     </div>
   );
 };

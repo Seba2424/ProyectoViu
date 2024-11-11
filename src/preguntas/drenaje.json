@@ -47,14 +47,6 @@
             {
               "tipo": "si_no",
               "pregunta": "¿Dentro del proyecto se ha asignado un presupuesto específico para la participación ciudadana en la mejora continua del sistema de drenaje urbano?"
-            },
-            {
-              "tipo": "abierta",
-              "pregunta": "¿Qué porcentaje de los residentes encuestados están de acuerdo con la implementación de medidas de drenaje específicas, según datos recopilados en encuestas recientes?"
-            },
-            {
-              "tipo": "abierta",
-              "pregunta": "¿Cuántas quejas o sugerencias relacionadas con el diseño del proyecto de sistema de drenaje urbano han sido registradas por la municipalidad?"
             }
           ]
         }
