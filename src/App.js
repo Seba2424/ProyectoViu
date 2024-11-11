@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import ProjectSelection from './components/ProjectSelection';
 import ProjectForm from './components/ProjectForm';
 import Map from './components/Map';
-import Charts from './components/Charts';  // Importa el componente Charts
+import Charts from './components/Charts';
+import caminos from './preguntas/caminos.json';
+import drenaje from './preguntas/drenaje.json';
+import pavimentacion from './preguntas/pavimentacion.json';
 import './App.css';
 
 const App = () => {
@@ -11,8 +14,10 @@ const App = () => {
   const [projectData, setProjectData] = useState(null);
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [projectType, setProjectType] = useState(null);
-  const [showCharts, setShowCharts] = useState(false); // Estado para mostrar los gráficos
-  const [answers, setAnswers] = useState([]); // Estado para las respuestas de la evaluación
+  const [showCharts, setShowCharts] = useState(false);
+  const [answers, setAnswers] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
 
   const handleLogin = () => {
     setLoggedIn(true);
@@ -32,9 +37,32 @@ const App = () => {
 
   const handleEvaluationComplete = (collectedAnswers) => {
     console.log('Evaluación completada con respuestas:', collectedAnswers);
-    setAnswers(collectedAnswers);  // Guardar las respuestas
-    setShowCharts(true);  // Mostrar los gráficos
+    setAnswers(collectedAnswers);
+    setShowCharts(true);
   };
+
+  // Función para cargar dinámicamente las categorías y subcategorías desde el JSON
+  useEffect(() => {
+    let data;
+    if (projectType === 'caminos') {
+      data = caminos.caminos;
+    } else if (projectType === 'drenaje') {
+      data = drenaje.drenaje;
+    } else if (projectType === 'pavimentacion') {
+      data = pavimentacion.pavimentacion;
+    }
+
+    if (data) {
+      // Extraer las categorías y subcategorías del JSON
+      const extractedCategories = data.map((category) => category.categoria);
+      const extractedSubcategories = data.map((category) =>
+        (category.subcategorias || []).map((sub) => sub.subcategoria || category.categoria)
+      );
+
+      setCategories(extractedCategories);
+      setSubcategories(extractedSubcategories);
+    }
+  }, [projectType]);
 
   return (
     <div className="app-container">
@@ -47,22 +75,19 @@ const App = () => {
       ) : (
         <>
           {!showCharts ? (
-            <Map 
-              projectData={projectData} 
-              onStartEvaluation={handleStartEvaluation} 
-              isEvaluating={isEvaluating} 
-              onEvaluationComplete={handleEvaluationComplete} 
-              projectType={projectType} 
+            <Map
+              projectData={projectData}
+              onStartEvaluation={handleStartEvaluation}
+              isEvaluating={isEvaluating}
+              onEvaluationComplete={handleEvaluationComplete}
+              projectType={projectType}
             />
           ) : (
             <div className="charts-container">
-              <Charts 
+              <Charts
                 answers={answers}
-                categories={["OPINIÓN SOCIAL", "VALORACIÓN Y REPUTACIÓN"]}
-                subcategories={[
-                  ['Identificación de opositores durante la formulación del proyecto', 'Apoyo mayoritario de la población local a la construcción de la infraestructura', 'Percepción general de las opiniones generadas sobre la infraestructura'],
-                  ['Historial de proyectos anteriores', 'Experiencia y capacitación del personal', 'Transparencia y comunicación']
-                ]}
+                categories={categories}
+                subcategories={subcategories}
               />
             </div>
           )}

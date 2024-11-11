@@ -6,29 +6,27 @@ import pavimentacion from '../preguntas/pavimentacion.json';
 
 const Evaluation = ({ onEvaluationComplete, projectType }) => {
   const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true); // Nuevo estado para manejar la carga
+  const [loading, setLoading] = useState(true);
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentSubCategoryIndex, setCurrentSubCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [openText, setOpenText] = useState('');
 
-  // Cargar el archivo JSON según el tipo de proyecto
   useEffect(() => {
     let data;
     if (projectType === 'caminos') {
-      data = caminos.caminos; // Acceder al array dentro del objeto 'caminos'
+      data = caminos.caminos;
     } else if (projectType === 'drenaje') {
-      data = drenaje.drenaje; // Acceder al array dentro del objeto 'drenaje'
+      data = drenaje.drenaje;
     } else if (projectType === 'pavimentacion') {
-      data = pavimentacion.pavimentacion; // Acceder al array dentro del objeto 'pavimentacion'
+      data = pavimentacion.pavimentacion;
     }
-  
-    console.log("Datos cargados:", data); // Verifica los datos cargados
-    setQuestions(data || []);
-    setLoading(false); // Termina el loading
-  }, [projectType]);
 
+    console.log("Datos cargados:", data);
+    setQuestions(data || []);
+    setLoading(false);
+  }, [projectType]);
 
   const getSelectedAnswer = () => {
     if (
@@ -41,7 +39,18 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
     return null;
   };
 
-  // Este useEffect se asegurará de que se cargue la respuesta si es tipo abierta
+  const saveOpenTextAnswer = () => {
+    const updatedAnswers = [...answers];
+    if (!updatedAnswers[currentCategoryIndex]) {
+      updatedAnswers[currentCategoryIndex] = [];
+    }
+    if (!updatedAnswers[currentCategoryIndex][currentSubCategoryIndex]) {
+      updatedAnswers[currentCategoryIndex][currentSubCategoryIndex] = [];
+    }
+    updatedAnswers[currentCategoryIndex][currentSubCategoryIndex][currentQuestionIndex] = openText || '';
+    setAnswers(updatedAnswers);
+  };
+
   useEffect(() => {
     const selectedAnswer = getSelectedAnswer();
     if (questions.length > 0 && questions[currentCategoryIndex]) {
@@ -60,11 +69,11 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
   }, [currentQuestionIndex, currentSubCategoryIndex, currentCategoryIndex, questions]);
 
   if (loading) {
-    return <div>Cargando preguntas...</div>; // Mostrar mientras se cargan las preguntas
+    return <div>Cargando preguntas...</div>;
   }
 
   if (!questions.length) {
-    return <div>No se encontraron preguntas</div>; // Mostrar si no hay preguntas
+    return <div>No se encontraron preguntas</div>;
   }
 
   const currentCategory = questions[currentCategoryIndex];
@@ -87,15 +96,31 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
     }
     updatedAnswers[currentCategoryIndex][currentSubCategoryIndex][currentQuestionIndex] = answer || '';
     setAnswers(updatedAnswers);
+
     if (!isLastQuestion) {
       proceedToNextQuestion();
     }
   };
 
   const proceedToNextQuestion = () => {
+    if (currentQuestion.tipo === 'abierta') {
+      saveOpenTextAnswer(); // Guardar la respuesta antes de avanzar
+    }
+  
+    console.log("Evaluando siguiente paso...");
+    console.log("isLastQuestion: ", isLastQuestion);
+  
+    if (isLastQuestion) {
+      console.log("Estamos en la última pregunta, vamos a la confirmación...");
+      setConfirmationQuestion();
+      return;
+    }
+  
+    // Avanzar a la siguiente pregunta
     if (currentQuestionIndex < currentQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentSubCategoryIndex < subcategories.length - 1) {
+    } else if (currentSubCategoryIndex < subcategories.length - 1 && subcategories.length > 0) {
+      // Solo avanzamos en las subcategorías si existen
       setCurrentSubCategoryIndex(currentSubCategoryIndex + 1);
       setCurrentQuestionIndex(0);
     } else if (currentCategoryIndex < questions.length - 1) {
@@ -103,7 +128,23 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
       setCurrentSubCategoryIndex(0);
       setCurrentQuestionIndex(0);
     }
+  
     setOpenText(''); // Limpiar el texto después de avanzar
+  };
+  const setConfirmationQuestion = () => {
+    const confirmationQuestion = {
+      tipo: "confirmacion",
+      pregunta: "¿Está seguro de que la información guardada es correcta? Si selecciona 'No', volverá al inicio del cuestionario.",
+      opciones: ["Sí", "No"]
+    };
+  
+    setQuestions((prevQuestions) => [
+      ...prevQuestions,
+      { categoria: "Confirmación", preguntas: [confirmationQuestion] }
+    ]);
+    setCurrentCategoryIndex(questions.length); // Mueve el índice a la pregunta de confirmación
+    setCurrentSubCategoryIndex(0);
+    setCurrentQuestionIndex(0);
   };
 
   const handlePrevious = () => {
@@ -122,6 +163,7 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
   const handleViewCharts = () => {
     onEvaluationComplete(answers);
   };
+  
 
   return (
     <div className="evaluation-container">
@@ -130,22 +172,20 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
       <div className="question-container">
         <p>{currentQuestion.pregunta}</p>
         {currentQuestion.tipo === "si_no" ? (
-          <>
-            <div className="answer-button-container">
-              <button
-                className={`answer-button ${getSelectedAnswer() === 'Sí' ? 'selected' : ''}`}
-                onClick={() => handleAnswer('Sí')}
-              >
-                Sí
-              </button>
-              <button
-                className={`answer-button ${getSelectedAnswer() === 'No' ? 'selected' : ''}`}
-                onClick={() => handleAnswer('No')}
-              >
-                No
-              </button>
-            </div>
-          </>
+          <div className="answer-button-container">
+            <button
+              className={`answer-button ${getSelectedAnswer() === 'Sí' ? 'selected' : ''}`}
+              onClick={() => handleAnswer('Sí')}
+            >
+              Sí
+            </button>
+            <button
+              className={`answer-button ${getSelectedAnswer() === 'No' ? 'selected' : ''}`}
+              onClick={() => handleAnswer('No')}
+            >
+              No
+            </button>
+          </div>
         ) : currentQuestion.tipo === "opcion_multiple" ? (
           <div className="answer-button-container">
             {currentQuestion.opciones.map((opcion, index) => (
@@ -182,6 +222,13 @@ const Evaluation = ({ onEvaluationComplete, projectType }) => {
             Siguiente
           </button>
         )}
+      </div>
+      {/* Mostrar los datos de depuración */}
+      <div>
+        <h4>Depuración:</h4>
+        <p>Categoria: {currentCategoryIndex} / {questions.length - 1}</p>
+        <p>Subcategoria: {currentSubCategoryIndex} / {subcategories.length - 1}</p>
+        <p>Pregunta: {currentQuestionIndex} / {currentQuestions.length - 1}</p>
       </div>
     </div>
   );
